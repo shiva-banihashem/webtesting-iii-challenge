@@ -2,7 +2,7 @@ import React from 'react';
 
 import Display from '../display/Display';
 import Controls from '../controls/Controls';
-
+import Title from "../title/title";
 class Dashboard extends React.Component {
   state = {
     locked: false,
@@ -14,6 +14,7 @@ class Dashboard extends React.Component {
 
     return (
       <>
+        <Title/>
         <Display locked={locked} closed={closed} />
         <Controls
           locked={locked}
@@ -21,6 +22,7 @@ class Dashboard extends React.Component {
           toggleLocked={this.toggleLocked}
           toggleClosed={this.toggleClosed}
         />
+
       </>
     );
   }
