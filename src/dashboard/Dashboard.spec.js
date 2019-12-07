@@ -4,17 +4,37 @@ import React from 'react';
 import Dashboard from "./Dashboard";
 import { render, cleanup, fireEvent } from '@testing-library/react/pure';
 import '@testing-library/jest-dom/extend-expect';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+
+import {initialState ,reducer } from '../reducers/reducer.js'
+import Title from '../title/title.js'
+
+
+
+function renderWithRedux(
+    ui,
+    { initialState, store = createStore(reducer, initialState) } = {}
+  ) {
+    return {
+      ...render(<Provider store={store}>{ui}</Provider>),
+      
+      store,
+    }
+  }
+
+
 
 describe('<Dashboard />', () => {
     beforeEach(cleanup);
     it('renders without crashing', () => {
-        render(<Dashboard/>);
+        renderWithRedux(<Dashboard/>);
     });
 });
 
 describe("<Dashboard /> state transitions", () => {
     // object destructured so it's usable throughout the testing app
-    const { getByText } = render(<Dashboard />);
+    const { getByText } = renderWithRedux(<Dashboard />);
 
     it('default state: open and unlocked', () => {
         
